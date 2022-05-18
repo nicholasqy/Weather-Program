@@ -4,12 +4,7 @@ const API_URL = "https://api.opencagedata.com/geocode/v1/json"
 let weather = {
   apiKey: API_KEY,
   fetchWeather: function (city) {
-    fetch(
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-        city +
-        "&units=metric&appid=" +
-        this.apiKey
-    )
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${this.appkey}`)
       .then((response) => { // error part if it fails
         if (!response.ok) {
           alert("No weather found.");
@@ -38,21 +33,26 @@ let weather = {
   }, 
 };
 
+let forcast = {
+  apiKey: API_KEY,
+  fetchForcast: function(latitude, longitude) {
+    fetch(`https://api.openweathermap.org/data/2.5/forcast?lat=${latitude}&lon${longitude}&apiid=${this.apiKey}`)
+      .then((responce) => {
+        if (!responce.ok) {
+          alert("No forcast found");
+          throw new Error("No forcast found.");
+        }
+        return responce.json();
+      }).then((data) => this.displayForcast(data));
+  },
+  displayForcast: function(data) {
+    
+  }
+}
+
 let geocode = {
   reverseGeocode: function (latitude, longitude) {
-    var apikey = "5333f43e8a7a4553abee4745425cae8b";
-
-    var api_url = "https://api.opencagedata.com/geocode/v1/json";
-
-    var request_url =
-      api_url +
-      "?" +
-      "key=" +
-      apikey +
-      "&q=" +
-      encodeURIComponent(latitude + "," + longitude) +
-      "&pretty=1" +
-      "&no_annotations=1";
+    var request_url = `${API_URL}?key=${API_KEY}&q=${encodeURIComponent(latitude+","+longitude)}&pretty=1&no_annotations=1`
 
     // see full list of required and optional parameters:
     // https://opencagedata.com/api#forward
