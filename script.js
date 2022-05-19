@@ -35,7 +35,7 @@ let forecast = {
     document.querySelector(".city").innerText = `Weather in ${data.city.name}`;
     document.querySelector(".icon").src = `${ICON_URL}${days[0].weather[0].icon}.png`;
     document.querySelector(".description").innerText = days[0].weather[0].description;
-    document.querySelector(".temp").innerText = `${days[0].main.temp} °C`;
+    document.querySelector(".temp").innerText = `${Math.round(days[0].main.temp)} °C`;
     document.querySelector(".humidity").innerText = `Humidity: ${days[0].main.humidity}%`;
     document.querySelector(".wind").innerText = `Wind speed: ${days[0].wind.speed}km/h`;
     document.querySelector(".weather").classList.remove("loading");
@@ -58,7 +58,7 @@ let forecast = {
       forecastDay.innerHTML = day;
       forecastTemp = document.createElement("span");
       forecastTemp.classList.add("day-temp");
-      forecastTemp.innerHTML = `${days[i].main.temp}°C`;
+      forecastTemp.innerHTML = `${Math.round(days[i].main.temp)}°C`;
       forecastElem = document.createElement("li");
       forecastElem.appendChild(forecastIcon);
       forecastElem.appendChild(forecastDay);
