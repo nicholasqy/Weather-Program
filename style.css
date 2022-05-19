@@ -67,7 +67,7 @@ button:hover {
 }
 
 h1.temp {
-  margin: 0;
+  margin: 10px;
   margin-bottom: 0.3em;
 }
 
@@ -110,9 +110,6 @@ h1.temp {
 }
 
 .week-list>li {
-  border: solid;
-  border-width: 1px;
-  border-color: rgba(255, 255, 255, 0.4);
   float: left;
   padding: 15px;
   cursor: pointer;
@@ -122,13 +119,14 @@ h1.temp {
   border-radius: 10px;
   margin: 4px;
   align-items: center;
+  background: #7c7c7c2b;
 }
 
 .week-list>li:hover {
   -webkit-transform: scale(1.1);
       -ms-transform: scale(1.1);
           transform: scale(1.1);
-  background: #7c7c7c2b;
+  background: #7c7c7c6b;
   outline: none;
   -webkit-box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
           box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2)
