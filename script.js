@@ -3,40 +3,9 @@ const geocode_API_KEY = "5333f43e8a7a4553abee4745425cae8b"
 const geocode_API_URL = "https://api.opencagedata.com/geocode/v1/json"
 const API_URL = "https://api.openweathermap.org/data/2.5/"
 
-let weather = {
-  fetchWeather: function (city) {
-    fetch(`${API_URL}weather?q=${city}&units=metric&appid=${API_KEY}`)
-      .then((response) => { // error part if it fails
-        if (!response.ok) {
-          alert("No weather found.");
-          throw new Error("No weather found.");
-        }
-        return response.json();
-      })
-      .then((data) => this.displayWeather(data));
-  },
-  displayWeather: function (data) {
-    const { name } = data;
-    const { icon, description } = data.weather[0];
-    const { temp, humidity } = data.main;
-    const { speed } = data.wind;
-    document.querySelector(".city").innerText = `Weather in ${name}`;
-    document.querySelector(".icon").src = `https://openweathermap.org/img/wn/${icon}.png`;
-    document.querySelector(".description").innerText = description;
-    document.querySelector(".temp").innerText = `${temp} °C`;
-    document.querySelector(".humidity").innerText = `Humidity: ${humidity}%`;
-    document.querySelector(".wind").innerText = `Wind speed: ${speed}km/h`;
-    document.querySelector(".weather").classList.remove("loading");
-    document.body.style.backgroundImage = `var(--${data.weather[0].main})`;
-    },
-  search: function () {
-    this.fetchWeather(document.querySelector(".search-bar").value);
-  }, 
-};
-
 let forcast = {
-  fetchForcast: function(latitude, longitude) {
-    fetch(`${API_URL}forcast?lat=${latitude}&lon${longitude}&apiid=${API_KEY}`)
+  fetchForcast: function(city) {
+    fetch(`${API_URL}forecast?q=${city}&units=metric&appid=${API_KEY}`)
       .then((responce) => {
         if (!responce.ok) {
           alert("No forcast found");
@@ -46,7 +15,35 @@ let forcast = {
       }).then((data) => this.displayForcast(data));
   },
   displayForcast: function(data) {
-    
+    // Get latest weather data for each day
+    let days = [];
+    for (let i = 0; i < data.list.length; i++) {
+      let exists = false
+      for (let j = 0; j < days.length; j++) {
+        if (days[j].dt_txt.substr(0, 10) == data.list[i].dt_txt.substr(0, 10)) {
+          days[j] = data.list[i]
+          exists = true
+          break
+        }
+      }
+
+      if (!exists) days.push(data.list[i])
+    }
+
+    // Display todays data
+    document.querySelector(".city").innerText = `Weather in ${data.city.name}`;
+    document.querySelector(".icon").src = `https://openweathermap.org/img/wn/${days[0].weather[0].icon}.png`;
+    document.querySelector(".description").innerText = days[0].weather[0].description;
+    document.querySelector(".temp").innerText = `${days[0].main.temp} °C`;
+    document.querySelector(".humidity").innerText = `Humidity: ${days[0].main.humidity}%`;
+    document.querySelector(".wind").innerText = `Wind speed: ${days[0].wind.speed}km/h`;
+    document.querySelector(".weather").classList.remove("loading");
+    document.body.style.backgroundImage = `var(--${days[0].weather[0].main})`;
+
+    // Display next 5 days data
+  },
+  search: function() {
+    this.fetchForcast(document.querySelector(".search-bar").value);
   }
 }
 
@@ -67,7 +64,7 @@ let geocode = {
       if (request.status == 200) {
         // Success!
         var data = JSON.parse(request.responseText);
-        weather.fetchWeather(data.results[0].components.city);
+        forcast.fetchForcast(data.results[0].components.city);
         console.log(data.results[0].components.city)
       } else if (request.status <= 500) {
         // We reached our target server, but it returned an error
@@ -95,19 +92,19 @@ let geocode = {
       navigator.geolocation.getCurrentPosition(success, console.error);
     }
     else {
-      weather.fetchWeather("Surrey");
+      forcast.fetchForcast("Surrey");
     }
   }
 };
 
 document.querySelector(".search button").addEventListener("click", function () {
-  weather.search();
+  forcast.search();
 });
 
 document.querySelector(".search-bar")
 .addEventListener("keyup", function (event) {
   if (event.key == "Enter") {
-    weather.search();
+    forcast.search();
   }
 });
 
