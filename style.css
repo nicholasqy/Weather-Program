@@ -79,6 +79,7 @@ h1.temp {
 .description {
   text-transform: capitalize;
   margin-left: 8px;
+  margin-top: 1em;
 }
 
 .weather.loading {
@@ -94,4 +95,61 @@ h1.temp {
   position: absolute;
   top: 0;
   left: 30px;
+}
+
+.week-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 35px;
+  -webkit-box-shadow: 0 0 50px -5px rgba(255, 255, 255, 0.5);
+          box-shadow: 0 0 50px -5px rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  margin: 2em;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+}
+
+.week-list>li {
+  border: solid;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.4);
+  float: left;
+  padding: 15px;
+  cursor: pointer;
+  -webkit-transition: 200ms ease;
+  -o-transition: 200ms ease;
+  transition: 200ms ease;
+  border-radius: 10px;
+  margin: 4px;
+  align-items: center;
+}
+
+.week-list>li:hover {
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+  background: #7c7c7c2b;
+  outline: none;
+  -webkit-box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2)
+}
+
+.week-list>li .day-name {
+  display: block;
+  margin: 10px 0 0 0;
+  text-align: center;
+}
+
+.week-list>li .day-icon {
+  display: block;
+  height: 30px;
+  width: auto;
+  margin: 0 auto;
+}
+
+.week-list>li .day-temp {
+  display: block;
+  text-align: center;
+  margin: 10px 0 0 0;
+  font-weight: 700;
 }
