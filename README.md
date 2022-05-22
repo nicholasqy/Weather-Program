@@ -1,4 +1,4 @@
-# Weather-Program, Capstone
+# Weather-Program, Capstone Project
 
 To Use:
 Download the zip file of this repository. 
