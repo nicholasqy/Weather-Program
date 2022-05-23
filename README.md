@@ -1,5 +1,8 @@
 # Weather-Program, Capstone Project
 
+![image](https://user-images.githubusercontent.com/104588184/169843862-1caad304-429c-42bb-851c-eb08bdadb5f7.png)
+
+
 To Use:
 Download the zip file of this repository. 
 Unzip the file.
