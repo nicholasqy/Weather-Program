@@ -1,4 +1,4 @@
-# Weather-Program, Capstone Project
+# Weather-Program
 
 Helping a friend on his Weather Program project. The ability to search cities for current weather conditions, while displaying an animated background to match the setting.
 
@@ -15,3 +15,6 @@ Open the Weather-program file in the start menu once VsCode launches.
 
 Go to extensions and download Live Server and run it, on the bottom right Go Live will appear and press that to fully run the program.
 If it appears white on the chrome tab, make sure in VsCode you are on the HTML folder before you run. 
+
+Search for the desired location and use the ISO code for your country, state, or province. Ex. Canada (CA).
+Another way to find your location is to allow the browser to track your locating. automatically updating to your location.
